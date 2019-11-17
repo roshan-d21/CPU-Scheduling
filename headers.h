@@ -24,6 +24,8 @@ void enqueueFCFS(Queue *q, int processID, int burstTime);
 
 void enqueueSJF(Queue *q, int processID, int burstTime);
 
+void enqueuePriority(Queue *q, int processID, int burstTime, int priority);
+
 node *dequeue(Queue *q);
 
 void showQueue(Queue *q);
@@ -37,3 +39,5 @@ void calculateTurnAroundTime(Queue *q);
 void fcfs();
 
 void sjf();
+
+void priority();
