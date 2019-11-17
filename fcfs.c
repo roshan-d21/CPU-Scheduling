@@ -1,37 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "queue.c"
+#include "headers.h"
 
-void calculateWaitTime(Queue *q)
+void enqueueFCFS(Queue *q, int processID, int burstTime)
 {
-    node *ptr = q->front;
-    if (ptr == NULL)
-        return;
-    while (ptr->next != NULL)
+    node *temp = newnode(processID, burstTime, 0);
+    if (q->rear == NULL)
     {
-        ptr->next->waitTime = ptr->waitTime + ptr->burstTime;
-        ptr = ptr->next;
+        q->rear = q->front = temp;
     }
-}
-
-void calculateTurnAroundTime(Queue *q)
-{
-    node *ptr = q->front;
-    if (ptr == NULL)
-        return;
-    while (ptr!= NULL)
+    else
     {
-        ptr->turnAroundTime = ptr->burstTime + ptr->waitTime;
-        ptr = ptr->next;
+        q->rear->next = temp;
+        q->rear = temp;
     }
 }
 
 void fcfs()
 {
     Queue *q = createQueue();
-    enqueue(q, 1, 10);
-    enqueue(q, 2, 5);
-    enqueue(q, 3, 8);
+    enqueueFCFS(q, 1, 10);
+    enqueueFCFS(q, 2, 5);
+    enqueueFCFS(q, 3, 8);
     calculateWaitTime(q);
     calculateTurnAroundTime(q);
     showQueue(q);

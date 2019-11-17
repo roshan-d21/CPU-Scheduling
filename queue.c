@@ -1,25 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "headers.h"
 
-typedef struct node
-{
-    int processID;
-    int burstTime;
-    int waitTime;
-    int turnAroundTime;
-    struct node *next;
-}node;
-
-typedef struct Queue
-{
-    node *front, *rear;
-}Queue;
-
-node *newnode(int processID, int burstTime)
+node *newnode(int processID, int burstTime, int priority)
 {
     node *n = (node *)malloc(sizeof(node));
     n->processID = processID;
     n->burstTime = burstTime;
+    n->priority = priority;
     n->waitTime = 0;
     n->turnAroundTime = 0;
     n->next = NULL;
@@ -33,19 +21,19 @@ Queue *createQueue()
     return newqueue;
 }
 
-void enqueue(Queue *q, int processID, int burstTime)
-{
-    node *temp = newnode(processID, burstTime);
-    if (q->rear == NULL)
-    {
-        q->rear = q->front = temp;
-    }
-    else
-    {
-        q->rear->next = temp;
-        q->rear = temp;
-    }
-}
+// void enqueue(Queue *q, int processID, int burstTime, int priority)
+// {
+//     node *temp = newnode(processID, burstTime, priority);
+//     if (q->rear == NULL)
+//     {
+//         q->rear = q->front = temp;
+//     }
+//     else
+//     {
+//         q->rear->next = temp;
+//         q->rear = temp;
+//     }
+// }
 
 node *dequeue(Queue *q)
 {
@@ -73,10 +61,10 @@ void showQueue(Queue *q)
         printf("EMPTY\n");
         return;
     }
-    printf("Process ID\tBurst Time\tWait Time\tTurnaround Time\n");
+    printf("Process ID\tBurst Time\tWait Time\tTurnaround Time\tPriority\n");
     while (ptr != NULL)
     {
-        printf("%d\t\t%d\t\t%d\t\t%d\n", ptr->processID, ptr->burstTime, ptr->waitTime, ptr->turnAroundTime);
+        printf("%d\t\t%d\t\t%d\t\t%d\t\t%d\n", ptr->processID, ptr->burstTime, ptr->waitTime, ptr->turnAroundTime, ptr->priority);
         ptr = ptr->next;
     }
     printf("\n");
