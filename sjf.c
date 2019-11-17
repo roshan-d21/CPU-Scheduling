@@ -2,25 +2,38 @@
 #include <stdlib.h>
 #include "headers.h"
 
+/*
+ * Processes are enqueued in the Shortest Job First manner
+ * Processes are inserted in the increasing order of their burst times
+ * The process with the shortest job is pointed to by q->front
+ * The process with the longest job is pointed to by q->rear
+ */
 void enqueueSJF(Queue *q, int processID, int burstTime)
 {
+    // create new queue node with priority = 0
     node *newNode = newnode(processID, burstTime, 0);
+
+    // if queue is empty
     if (q->rear == NULL)
     {
         q->rear = q->front = newNode;
     }
     else
     {
+        // if the burst time of the new process is less than that of the process currently in the front of the queue
         if (newNode->burstTime < q->front->burstTime)
         {
             newNode->next = q->front;
             q->front = newNode;
         }
+
+        // if the burst time of the new process is greater than that of the process currently in the end of the queue
         else if (newNode->burstTime > q->rear->burstTime)
         {
             q->rear->next = newNode;
             q->rear = q->rear->next;
         }
+
         else
         {
             node *ptr = q->front, *prev = NULL;
@@ -37,6 +50,7 @@ void enqueueSJF(Queue *q, int processID, int burstTime)
 
 void sjf()
 {
+    printf("Shortest Job First:\n\n");
     Queue *q = createQueue();
     enqueueSJF(q, 1, 10);
     enqueueSJF(q, 2, 5);

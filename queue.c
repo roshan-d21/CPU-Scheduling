@@ -53,6 +53,9 @@ node *dequeue(Queue *q)
     }
 }
 
+/* Prints the queue in the following format:
+ *  Process ID, Burst Time, Wait Time, Turnaround Time, Priority
+ */
 void showQueue(Queue *q)
 {
     node *ptr = q->front;
