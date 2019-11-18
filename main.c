@@ -7,5 +7,6 @@ int main()
     fcfs();
     sjf();
     priority();
+    roundRobin();
     return 0;
 }

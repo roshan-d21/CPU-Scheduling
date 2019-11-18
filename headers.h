@@ -5,6 +5,7 @@ typedef struct node
 {
     int processID;
     int burstTime;
+    int currentBurstTime;
     int waitTime;
     int turnAroundTime;
     int priority;
@@ -26,6 +27,8 @@ void enqueueSJF(Queue *q, int processID, int burstTime);
 
 void enqueuePriority(Queue *q, int processID, int burstTime, int priority);
 
+void enqueueRoundRobin(Queue *q, int processID, int burstTime, int waitTime, int turnAroundTime);
+
 node *dequeue(Queue *q);
 
 void showQueue(Queue *q);
@@ -41,3 +44,5 @@ void fcfs();
 void sjf();
 
 void priority();
+
+void roundRobin();

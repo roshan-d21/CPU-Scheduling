@@ -7,6 +7,7 @@ node *newnode(int processID, int burstTime, int priority)
     node *n = (node *)malloc(sizeof(node));
     n->processID = processID;
     n->burstTime = burstTime;
+    n->currentBurstTime = burstTime;
     n->priority = priority;
     n->waitTime = 0;
     n->turnAroundTime = 0;
