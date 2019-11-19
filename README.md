@@ -21,9 +21,14 @@ Compile using:
 > make -f makefile.mk
 ```
 
+To compile without makefile, use:
+```
+> gcc main.c fcfs.c sjf.c prioritybased.c roundrobin.c queue.c time.c
+```
+
 Execute using:
 ```
-> ./a.exe < inputs.txt
+> a.exe < inputs.txt
 ```
 
 To add custom inputs to the program, modify the `inputs.txt` file, following the format below:
@@ -44,6 +49,21 @@ To add custom inputs to the program, modify the `inputs.txt` file, following the
 ...etc
 
 and so on.
+```
+
+Contents of a sample `inputs.txt` file are given below:
+```
+2
+
+3
+1 10 2
+2 5 0
+3 8 5
+
+3
+1 3 0
+2 4 0
+3 3 0
 ```
 
 ** **
