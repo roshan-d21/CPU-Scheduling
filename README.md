@@ -51,6 +51,8 @@ To add custom inputs to the program, modify the `inputs.txt` file, following the
 and so on.
 ```
 
+> Failing to maintain the above format might cause undefined behaviour
+
 Contents of a sample `inputs.txt` file are given below:
 ```
 2
