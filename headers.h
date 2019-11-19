@@ -39,10 +39,10 @@ void calculateWaitTime(Queue *q);
 
 void calculateTurnAroundTime(Queue *q);
 
-void fcfs();
+void fcfs(int numberOfProcesses, int *processIDs, int *burstTimes);
 
-void sjf();
+void sjf(int numberOfProcesses, int *processIDs, int *burstTimes);
 
-void priority();
+void priority(int numberOfProcesses, int *processIDs, int *burstTimes, int *priorities);
 
-void roundRobin();
+void roundRobin(int numberOfProcesses, int *processIDs, int *burstTimes);

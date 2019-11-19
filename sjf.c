@@ -23,12 +23,15 @@ void enqueueSJF(Queue *q, int processID, int burstTime)
         // if the burst time of the new process is less than that of the process currently in the front of the queue
         if (newNode->burstTime <= q->front->burstTime)
         {
-            if (newNode->burstTime == q->front->burstTime) {
+            if (newNode->burstTime == q->front->burstTime)
+            {
                 newNode->next = q->front->next;
                 q->front->next = newNode;
-            } else {
-            newNode->next = q->front;
-            q->front = newNode;
+            }
+            else
+            {
+                newNode->next = q->front;
+                q->front = newNode;
             }
         }
 

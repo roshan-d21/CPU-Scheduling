@@ -1,3 +1,7 @@
+/*
+ * NOTE: See README.md for information on modifying inputs and running the program.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "headers.h"
