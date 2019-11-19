@@ -12,7 +12,7 @@ void enqueueFCFS(Queue *q, int processID, int burstTime)
 {
     // create new queue node with priority = 0
     node *temp = newnode(processID, burstTime, 0);
-    
+
     if (q->rear == NULL)
     {
         q->rear = q->front = temp;
@@ -24,13 +24,17 @@ void enqueueFCFS(Queue *q, int processID, int burstTime)
     }
 }
 
-void fcfs()
+void fcfs(int numberOfProcesses, int *processIDs, int *burstTimes)
 {
     printf("First Come First Serve:\n\n");
     Queue *q = createQueue();
-    enqueueFCFS(q, 1, 10);
-    enqueueFCFS(q, 2, 5);
-    enqueueFCFS(q, 3, 8);
+    for (int i = 0; i < numberOfProcesses; i++)
+    {
+        enqueueFCFS(q, processIDs[i], burstTimes[i]);
+    }
+    // enqueueFCFS(q, , 10);
+    // enqueueFCFS(q, 2, 5);
+    // enqueueFCFS(q, 3, 8);
     calculateWaitTime(q);
     calculateTurnAroundTime(q);
     showQueue(q);

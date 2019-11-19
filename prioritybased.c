@@ -28,7 +28,7 @@ void enqueuePriority(Queue *q, int processID, int burstTime, int priority)
         }
 
         // if the priority of the new process is less than that of the process currently in the end of the queue
-        else if (newNode->priority < q->rear->priority)
+        else if (newNode->priority <= q->rear->priority)
         {
             q->rear->next = newNode;
             q->rear = q->rear->next;
@@ -48,13 +48,16 @@ void enqueuePriority(Queue *q, int processID, int burstTime, int priority)
     }
 }
 
-void priority()
+void priority(int numberOfProcesses, int *processIDs, int *burstTimes, int *priorities)
 {
     printf("Priority Based Scheduling:\n\n");
     Queue *q = createQueue();
-    enqueuePriority(q, 1, 10, 2);
-    enqueuePriority(q, 2, 5, 0);
-    enqueuePriority(q, 3, 8, 5);
+
+    for (int i = 0; i < numberOfProcesses; i++)
+    {
+        enqueuePriority(q, processIDs[i], burstTimes[i], priorities[i]);
+    }
+
     calculateWaitTime(q);
     calculateTurnAroundTime(q);
     showQueue(q);

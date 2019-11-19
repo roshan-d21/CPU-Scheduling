@@ -21,10 +21,15 @@ void enqueueSJF(Queue *q, int processID, int burstTime)
     else
     {
         // if the burst time of the new process is less than that of the process currently in the front of the queue
-        if (newNode->burstTime < q->front->burstTime)
+        if (newNode->burstTime <= q->front->burstTime)
         {
+            if (newNode->burstTime == q->front->burstTime) {
+                newNode->next = q->front->next;
+                q->front->next = newNode;
+            } else {
             newNode->next = q->front;
             q->front = newNode;
+            }
         }
 
         // if the burst time of the new process is greater than that of the process currently in the end of the queue
@@ -48,13 +53,15 @@ void enqueueSJF(Queue *q, int processID, int burstTime)
     }
 }
 
-void sjf()
+void sjf(int numberOfProcesses, int *processIDs, int *burstTimes)
 {
     printf("Shortest Job First:\n\n");
     Queue *q = createQueue();
-    enqueueSJF(q, 1, 10);
-    enqueueSJF(q, 2, 5);
-    enqueueSJF(q, 3, 8);
+    for (int i = 0; i < numberOfProcesses; i++)
+    {
+        enqueueSJF(q, processIDs[i], burstTimes[i]);
+    }
+
     calculateWaitTime(q);
     calculateTurnAroundTime(q);
     showQueue(q);
