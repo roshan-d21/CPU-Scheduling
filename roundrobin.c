@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "headers.h"
 
-#define quantum 1
+#define quantum 2
 
 // A basic enqueue implementation
 void enqueueRoundRobin(Queue *q, int processID, int burstTime, int waitTime, int turnAroundTime)
@@ -35,28 +35,34 @@ void roundRobin(int numberOfProcesses, int *processIDs, int *burstTimes)
 {
     printf("Round Robin Scheduling:\n\n");
     Queue *q = createQueue();
-    Queue *qCopy = createQueue();   // A queue created solely to store the output (becasue the original queue becomes fully empty after round-robin scheduling)
 
+    // A queue created solely to store the output (becasue the original queue becomes fully empty after round-robin scheduling)
+    Queue *qCopy = createQueue();
+
+    // Enqueue all incoming processes
     for (int i = 0; i < numberOfProcesses; i++)
     {
         enqueueRoundRobin(q, processIDs[i], burstTimes[i], 0, 0);
     }
-    // enqueueRoundRobin(q, 1, 3, 0, 0);
-    // enqueueRoundRobin(q, 2, 4, 0, 0);
-    // enqueueRoundRobin(q, 3, 3, 0, 0);
 
     // Perform round robin scheduling as long as there are processes to be executed
     while (q->front)
     {
-        q->front->currentBurstTime -= quantum;
+        int allowedCompletionDuration = q->front->currentBurstTime - quantum;
+        allowedCompletionDuration = (allowedCompletionDuration >= 0) ? quantum : quantum + allowedCompletionDuration;
 
+        // Decrease burst time of the front element (i.e it gets performed now)
+        q->front->currentBurstTime -= allowedCompletionDuration;
+
+        // Update wait times of all those processes in the queue
         node *temp = q->front->next;
         while (temp)
         {
-            temp->waitTime += quantum;
+            temp->waitTime += allowedCompletionDuration;
             temp = temp->next;
         }
 
+        // If the process at the front of the queue is fully completed, dequeue it
         if (q->front->currentBurstTime <= 0)
         {
             enqueueRoundRobin(qCopy, q->front->processID, q->front->burstTime, q->front->waitTime, 0);

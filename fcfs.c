@@ -32,9 +32,7 @@ void fcfs(int numberOfProcesses, int *processIDs, int *burstTimes)
     {
         enqueueFCFS(q, processIDs[i], burstTimes[i]);
     }
-    // enqueueFCFS(q, , 10);
-    // enqueueFCFS(q, 2, 5);
-    // enqueueFCFS(q, 3, 8);
+
     calculateWaitTime(q);
     calculateTurnAroundTime(q);
     showQueue(q);
